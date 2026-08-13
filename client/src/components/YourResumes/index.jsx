@@ -3,6 +3,7 @@ import "./index.css";
 
 const YourResumes = () => {
   const [selectedFile, setSelectedFile] = useState(null);
+  const [jobDescription, setJobDescription] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [analysisResult, setAnalysisResult] = useState(null);
@@ -16,6 +17,10 @@ const YourResumes = () => {
   const handleUploadAndAnalyze = async () => {
     if (!selectedFile) {
       setError("Please select a resume to upload.");
+      return;
+    }
+    if (!jobDescription.trim()) {              
+      setError("Please paste a job description.");
       return;
     }
 
@@ -52,11 +57,9 @@ const YourResumes = () => {
 
       const data = await uploadResponse.json();
 
-      // STEP 2: Analyze Resume
       const rawData = {
         resumeText: data.text,
-        jobDescription:
-          "Junior Full Stack Developer. We are looking for a motivated entry-level Full Stack Developer to join our engineering team. You will work on building and maintaining web applications using modern technologies. Requirements: Bachelor's degree in Computer Science or related field. Proficiency in HTML, CSS, JavaScript, and React. Experience with Node.js, Express, and REST APIs. Familiarity with MongoDB or any NoSQL database. Understanding of Git and version control. Strong problem-solving skills and attention to detail. Good communication and teamwork abilities. Nice to Have: Experience with TypeScript, Redux, or Next.js. Exposure to cloud platforms like AWS or Azure. Knowledge of CI/CD pipelines and Docker. Responsibilities: Develop and maintain responsive web applications. Build RESTful APIs and integrate with frontend components. Write clean, maintainable, and well-documented code. Collaborate with designers, product managers, and senior developers. Participate in code reviews and contribute to team best practices. Debug and resolve technical issues across the full stack.",
+        jobDescription: jobDescription,
       };
 
       const analyzeResponse = await fetch(
@@ -95,6 +98,14 @@ const YourResumes = () => {
         type="file"
         accept=".pdf"
         onChange={handleFileChange}
+      />
+
+      <textarea
+        placeholder="Paste the job description here..."
+        value={jobDescription}
+        onChange={(e) => setJobDescription(e.target.value)}
+        rows={8}
+        style={{ width: "100%", marginTop: "10px", marginBottom: "10px" }}
       />
 
       <button onClick={handleUploadAndAnalyze} disabled={loading}>

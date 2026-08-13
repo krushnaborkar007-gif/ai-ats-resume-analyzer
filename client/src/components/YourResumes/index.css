@@ -278,3 +278,32 @@
 @media (max-width: 600px) {
   .modal { padding: 28px 20px; }
 }
+textarea {
+  width: 100%;
+  min-height: 180px;
+  padding: 16px;
+  box-sizing: border-box;
+
+  background: rgba(10, 20, 45, 0.85);
+  color: #e8f4ff;
+
+  border: 1px solid rgba(0, 200, 220, 0.35);
+  border-radius: 10px;
+
+  outline: none;
+  resize: vertical;
+
+  font-size: 15px;
+  line-height: 1.5;
+
+  box-shadow: 0 0 12px rgba(0, 190, 220, 0.08);
+}
+
+textarea:focus {
+  border-color: #00cfd5;
+  box-shadow: 0 0 15px rgba(0, 207, 213, 0.2);
+}
+
+textarea::placeholder {
+  color: #7f91b5;
+}
